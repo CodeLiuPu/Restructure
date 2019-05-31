@@ -34,10 +34,7 @@ public class Customer {
         Enumeration<Rental> rentals = mRrentals.elements();
         String result = "Rental Record for " + getName() + "\n";
         while (rentals.hasMoreElements()) {
-            double thisAmount = 0;
             Rental each = rentals.nextElement();
-
-            thisAmount = amountFor(each);
 
             // add frequent renter points
             frequentRenterPoints++;
@@ -48,8 +45,8 @@ public class Customer {
             }
 
             // show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + "\n";
-            totalAmount += thisAmount;
+            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
+            totalAmount += each.getCharge();
 
         }
 
@@ -59,26 +56,4 @@ public class Customer {
         return result;
     }
 
-    private double amountFor(Rental rental) {
-        double result = 0;
-        // determine amounts for each line
-        switch (rental.getMovie().getPriceCode()) {
-            case Movie.REGULAR:
-                result += 2;
-                if (rental.getDaysRented() > 2) {
-                    result += (rental.getDaysRented() - 2) * 1.5;
-                }
-                break;
-            case Movie.NEW_RELEASE:
-                result += rental.getDaysRented() * 3;
-                break;
-            case Movie.CHILDRENS:
-                result += 1.5;
-                if (rental.getDaysRented() > 3) {
-                    result += (rental.getDaysRented() - 3) * 1.5;
-                }
-                break;
-        }
-        return result;
-    }
 }
