@@ -45,6 +45,26 @@ public class Customer {
         return result;
     }
 
+    /**
+     * 生成 Html 详单
+     */
+    public String htmlStatement() {
+        Enumeration<Rental> rentals = mRrentals.elements();
+        String result = "<Html> Rental Record for " + getName() + "\n";
+
+        while (rentals.hasMoreElements()) {
+            Rental each = rentals.nextElement();
+            // show figures for this rental
+            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
+
+        }
+
+        // add footer lines
+        result += "<Html> Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
+        result += "<Html> You earned " + String.valueOf(getFrequentRenterPoints()) + " frequent renter points";
+        return result;
+    }
+
     private double getTotalCharge() {
         double result = 0;
         Enumeration<Rental> rentals = mRrentals.elements();
