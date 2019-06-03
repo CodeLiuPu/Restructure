@@ -12,4 +12,9 @@ public abstract class Price {
      * 金额计算
      */
     abstract double getCharge(int daysRented);
+
+    public int getFrequentRenterPoints(int daysRented) {
+        // add bonus for a two day new release rental
+        return 1;
+    }
 }
