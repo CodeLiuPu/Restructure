@@ -12,11 +12,11 @@ public class Movie {
     public static final int NEW_RELEASE = 1;
 
     private String title;
-    private int priceCode;
+    private Price priceCode;
 
-    public Movie(String title, int priceCode) {
+    public Movie(String title, int code) {
         this.title = title;
-        this.priceCode = priceCode;
+        setPriceCode(code);
     }
 
     public String getTitle() {
@@ -24,11 +24,23 @@ public class Movie {
     }
 
     public int getPriceCode() {
-        return priceCode;
+        return priceCode.getPriceCode();
     }
 
-    public void setPriceCode(int priceCode) {
-        this.priceCode = priceCode;
+    public void setPriceCode(int code) {
+        switch (code) {
+            case REGULAR:
+                priceCode = new RegularPrice();
+                break;
+            case NEW_RELEASE:
+                priceCode = new NewReleasePrice();
+                break;
+            case CHILDRENS:
+                priceCode = new ChildrensPrice();
+                break;
+            default:
+                throw new IllegalArgumentException("Incorrect Price Code");
+        }
     }
 
     /**
